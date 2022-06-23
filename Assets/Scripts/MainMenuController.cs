@@ -21,6 +21,11 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene("CreditScene");
     }
 
+    public void ReturnMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void ClickPlay()
     {
         Debug.Log("Created by Shella A-149251970100-176.");
