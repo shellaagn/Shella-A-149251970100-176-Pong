@@ -18,7 +18,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenAuthor()
     {
-        Debug.Log("Ehehehehehehalo");
+        SceneManager.LoadScene("CreditScene");
     }
 
     public void ClickPlay()

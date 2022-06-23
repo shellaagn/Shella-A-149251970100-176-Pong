@@ -1647,7 +1647,7 @@ MonoBehaviour:
   spawnArea: {fileID: 786079909}
   maxPowerUpAmount: 3
   powerUpAreaMin: {x: -6, y: -4}
-  powerUpAreaMax: {x: 6, y: 4}
+  powerUpAreaMax: {x: 6, y: 3}
   spawnInterval: 5
   unusedSpawnTimer: 6
   powerUpTemplateList:
