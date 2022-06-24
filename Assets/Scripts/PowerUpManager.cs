@@ -20,6 +20,26 @@ public class PowerUpManager : MonoBehaviour
     private List<GameObject> powerUpList;
     public List<GameObject> powerUpTemplateList;
 
+    // PowerUp Status
+    public bool activeStatusBallSpeedUp = false;
+    public bool activeStatusLeftPaddleSpeedUp = false;
+    public bool activeStatusRightPaddleSpeedUp = false;
+    public bool activeStatusLeftPaddleScaleUp = false;
+    public bool activeStatusRightPaddleScaleUp = false;
+
+    // PowerUp Durations
+    private float durationBallSpeedUp;
+    private float durationLeftPaddleSpeedUp;
+    private float durationRightPaddleSpeedUp;
+    private float durationLeftPaddleScaleUp;
+    private float durationRightPaddleScaleUp;
+
+    // objects affected by powerups
+    public GameObject ball;
+    public float ballMagnitude;
+    public GameObject LeftPaddle;
+    public GameObject RightPaddle;
+    
     void Start()
     {
         powerUpList = new List<GameObject>();
@@ -37,11 +57,77 @@ public class PowerUpManager : MonoBehaviour
             GenerateRandomPowerUp();
             timer -= spawnInterval;
 
+            // delete powerup if not claimed 
             if(deleteTimer > unusedSpawnTimer)
             {
                 RemovePowerUp(powerUpList[0]);
                 deleteTimer -= unusedSpawnTimer;
             }
+        }
+
+        // buff ball speed up duration
+        if (activeStatusBallSpeedUp == true)
+        {
+            if (durationBallSpeedUp >= 5)
+            {
+                ball.GetComponent<BallController>().DeactivatePUSpeedUp(ballMagnitude);
+                durationBallSpeedUp = 0;
+                activeStatusBallSpeedUp = false;
+                Debug.Log("Ball Speed DOWN!");
+            }
+            durationBallSpeedUp += Time.deltaTime;
+        }
+
+        // buff paddle-kiri speed up duration
+        if (activeStatusLeftPaddleSpeedUp == true)
+        {
+            if (durationLeftPaddleSpeedUp >= 5)
+            {
+                LeftPaddle.GetComponent<PaddleController>().DeactivatePaddleSpeedUp(LeftPaddle);
+                durationLeftPaddleSpeedUp = 0;
+                activeStatusLeftPaddleSpeedUp = false;
+                Debug.Log("Left Paddle Speed DOWN!");
+            }
+            durationLeftPaddleSpeedUp += Time.deltaTime;
+        }
+
+        // buff paddle-kanan speed up duration
+        if (activeStatusRightPaddleSpeedUp == true)
+        {
+            if (durationRightPaddleSpeedUp >= 5)
+            {
+                RightPaddle.GetComponent<PaddleController>().DeactivatePaddleSpeedUp(RightPaddle);
+                durationRightPaddleSpeedUp = 0;
+                activeStatusRightPaddleSpeedUp = false;
+                Debug.Log("Right Paddle Speed DOWN!");
+            }
+            durationRightPaddleSpeedUp += Time.deltaTime;
+        }
+
+        // buff paddle-kiri scale up duration
+        if (activeStatusLeftPaddleScaleUp == true)
+        {
+            if (durationLeftPaddleScaleUp >= 5)
+            {
+                LeftPaddle.GetComponent<PaddleController>().DeactivatePaddleScaleUp(LeftPaddle);
+                durationLeftPaddleScaleUp = 0;
+                activeStatusLeftPaddleScaleUp = false;
+                Debug.Log("Left Paddle Scale DOWN!");
+            }
+            durationLeftPaddleScaleUp += Time.deltaTime;
+        }
+
+        // buff paddle-kanan scale up duration
+        if (activeStatusRightPaddleScaleUp == true)
+        {
+            if (durationRightPaddleScaleUp >= 5)
+            {
+                RightPaddle.GetComponent<PaddleController>().DeactivatePaddleScaleUp(RightPaddle);
+                durationRightPaddleScaleUp = 0;
+                activeStatusRightPaddleScaleUp = false;
+                Debug.Log("Right Paddle Scale DOWN!");
+            }
+            durationRightPaddleScaleUp += Time.deltaTime;
         }
     }
 

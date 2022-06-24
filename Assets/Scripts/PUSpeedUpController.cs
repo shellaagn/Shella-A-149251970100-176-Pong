@@ -11,14 +11,17 @@ public class PUSpeedUpController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision == ball)
+        if(collision == ball && manager.activeStatusBallSpeedUp == false)
         {
+            manager.activeStatusBallSpeedUp = true;
+            manager.ballMagnitude = magnitude;
+
             // Speed Up the ball
             ball.GetComponent<BallController>().ActivatePUSpeedUp(magnitude);
             
             // delet urself
             manager.RemovePowerUp(gameObject);
-            Debug.Log("Speed UP!");
+            Debug.Log("Ball Speed UP!");
         }
     }
 }
